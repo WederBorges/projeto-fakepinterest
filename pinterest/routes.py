@@ -1,3 +1,6 @@
+#cria as rotas do site
+
+
 from pinterest import app
 from flask import render_template, url_for
 

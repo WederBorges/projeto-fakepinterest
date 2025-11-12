@@ -1,15 +1,10 @@
+{% extends 'homepage.html'%}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-</head>
-<body>
-    OI PERFIL de {{ id_usuario }} aqui ne
 
-    <a href="{{ url_for('home') }}"> SAIR POHA </a>
+{% block titulo %}
+aqui eh perfil de {{ id_usuario }}
+{% endblock %}
 
-</body>
-</html>
+{% block body %}
+OI PERFIL de {{ id_usuario }} aqui ne
+{% endblock %}
