@@ -1,0 +1,24 @@
+{% extends 'homepage.html' %}
+
+{% block titulo %}
+    fakepinterest - Register
+{% endblock %}
+
+
+{% block formulario %}
+    <form method="post">
+        {{ form.user_name.label() }}
+        {{ form.user_name() }}
+
+        {{ form.email.label() }}
+        {{ form.email() }}
+
+        {{ form.senha.label() }}
+        {{ form.senha() }}
+
+        {{ form.senha_confirmacao.label() }}
+        {{ form.senha_confirmacao() }}
+
+        {{ form.botao_confirmacao }}
+    </form>
+{% endblock %}

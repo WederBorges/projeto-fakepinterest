@@ -12,5 +12,8 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
-login_manager.login_view = "oXorZ6sbEyQ9LKwpdDK1ZBaC-dUOgFpdK_3VJ8LNasrxZBlVzDU2_TYEmg"
+login_manager.login_view = "home"
+
+from pinterest import models
+
 from pinterest import routes
