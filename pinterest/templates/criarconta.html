@@ -7,6 +7,9 @@
 
 {% block formulario %}
     <form method="post">
+        
+         {{ form.csrf_token }}
+
         {{ form.user_name.label() }}
         {{ form.user_name() }}
 
@@ -20,5 +23,6 @@
         {{ form.senha_confirmacao() }}
 
         {{ form.botao_confirmacao }}
+
     </form>
 {% endblock %}
