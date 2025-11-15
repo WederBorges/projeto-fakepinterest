@@ -2,12 +2,18 @@
 
 
 {% block titulo %}
-aqui eh perfil de {{ id_usuario }}
+aqui eh perfil de {{ usuario.username }}
 {% endblock %}
 
 {% block body %}
-OI PERFIL de {{ id_usuario }} aqui ne
+OI PERFIL de {{ usuario.username }} aqui ne
+<a href="{{ url_for('logout') }}">Sair</a>
+
+<img src="{{ url_for('static', filename='fotos_post/default.png') }}" alt="">
+
+
 {% endblock %}
+
 
 {% block formulario %}
 {% endblock %}
