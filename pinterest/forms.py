@@ -1,7 +1,7 @@
 #o forms mantém os formulários do nosso site
 from .models import Usuario
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, EmailField, StringField, SubmitField
+from wtforms import PasswordField, EmailField, StringField, SubmitField, FileField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 
 class FormLogin(FlaskForm): 
@@ -22,3 +22,9 @@ class CriarConta(FlaskForm):
 
         if usuario:
             raise ValidationError("Já existe conta para este e-mail")
+        
+
+class FormEnviarFoto(FlaskForm):
+
+    foto = FileField("Foto", validators=[DataRequired()])
+    botao_upload = SubmitField("Enviar Foto")      

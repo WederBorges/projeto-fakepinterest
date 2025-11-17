@@ -6,10 +6,30 @@ aqui eh perfil de {{ usuario.username }}
 {% endblock %}
 
 {% block body %}
-OI PERFIL de {{ usuario.username }} aqui ne
-<a href="{{ url_for('logout') }}">Sair</a>
+<body>
 
-<img src="{{ url_for('static', filename='fotos_post/default.png') }}" alt="">
+{% include 'nav_bar.html' %}
+
+    
+
+<h1>OI PERFIL de {{ usuario.username }} aqui ne</h1>
+
+
+
+{% for foto in usuario.fotos %}
+    <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}" alt="">
+{% endfor %}
+{% if form %}
+<form method="post" enctype="multipart/form-data">
+
+    {{ form.csrf_token }}
+
+    {{ form.foto }}
+    {{ form.botao_upload }}
+
+</form>
+
+{% endif %}
 
 
 {% endblock %}
@@ -17,3 +37,4 @@ OI PERFIL de {{ usuario.username }} aqui ne
 
 {% block formulario %}
 {% endblock %}
+</body>

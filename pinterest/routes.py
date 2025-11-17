@@ -3,9 +3,11 @@
 
 from pinterest import app, bcrypt, db
 from flask import render_template, url_for, redirect
-from pinterest.forms import FormLogin, CriarConta
+from pinterest.forms import FormLogin, CriarConta, FormEnviarFoto
 from pinterest.models import Usuario, Foto
 from flask_login import login_required, login_user, logout_user, current_user
+import os 
+from werkzeug.utils import secure_filename
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -47,14 +49,34 @@ def criar_conta():
     return render_template('criarconta.html', form=form_criar_conta)
 
 
-@app.route("/perfil/<id_usuario>")
+@app.route("/perfil/<id_usuario>", methods=['GET', 'POST'])
 @login_required
 def perfil(id_usuario):
     
     usuario = Usuario.query.get(int(id_usuario))
+
     if not usuario:
         return "Usuário não encontrado", 404
+    
     if int(id_usuario) == int(current_user.id):
-        return render_template('perfil.html', usuario=current_user)
+        form_foto = FormEnviarFoto()
+        if form_foto.validate_on_submit():
+            arquivo = form_foto.foto.data
+            nome_seguro = secure_filename(arquivo.filename)
+            caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), #o propio caminho
+                               app.config['UPLOAD_FOLDER'], nome_seguro)
+            arquivo.save(caminho) 
+            foto = Foto(imagem=nome_seguro,
+                        id_usuario=current_user.id)
+            db.session.add(foto)
+            db.session.commit() 
+            
+        return render_template('perfil.html', usuario=current_user, form=form_foto)
     else:
-        return render_template('perfil.html', usuario=usuario)
+        return render_template('perfil.html', usuario=usuario, form=None)
+
+@app.route("/feed")
+def feed():
+    fotos = Foto.query.order_by(Foto.data_criacao).all()
+
+    return render_template("feed.html", fotos=fotos)
