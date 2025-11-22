@@ -4,10 +4,17 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField, EmailField, StringField, SubmitField, FileField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 
+
 class FormLogin(FlaskForm): 
     email = StringField("E-mail", validators=[DataRequired(), Email()])
     senha = PasswordField("Senha", validators=[DataRequired()])
     botao_confirmacao = SubmitField("Fazer Login")
+
+    def validate_email(self, email):
+        usuario = Usuario.query.filter_by(email=email.data).first()  
+
+        if not usuario:
+            raise ValidationError("Não existe conta para este e-mail")
     
 
 class CriarConta(FlaskForm):

@@ -28,6 +28,11 @@
 
           <div class="div-input">
             {{ form.user_name.label(class="label") }}
+            {% if form.email.errors %}
+              {% for erro in form.email.errors%}
+                <p style="color: red">{{ erro }}</p>
+              {% endfor %}  
+            {% endif %}
             {{ form.user_name(class="input") }}
           </div>
 
@@ -38,11 +43,21 @@
 
           <div class="div-input">
             {{ form.senha.label(class="label") }}
+            {% if form.senha.errors %}
+              {% for erro in form.senha.errors%}
+                <p style="color: red">{{ erro }}</p>
+              {% endfor %}  
+            {% endif %}            
             {{ form.senha(class="input") }}
           </div>
           
           <div class="div-input">
             {{ form.senha_confirmacao.label(class="label") }}
+            {% if form.senha_confirmacao.errors %}
+              {% for erro in form.senha_confirmacao.errors%}
+                <p style="color: red">{{ erro }}</p>
+              {% endfor %}  
+            {% endif %}            
             {{ form.senha_confirmacao(class="input") }}
           </div>
 
@@ -51,4 +66,4 @@
             <a href="{{url_for('home')}}" class="link-criarconta">Já tem uma conta? Logue aqui</a>
           </div>
         </form>
-        {% endblock %}
+{% endblock %}

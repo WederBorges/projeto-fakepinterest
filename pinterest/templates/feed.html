@@ -1,18 +1,23 @@
 {% extends 'homepage.html' %}
 
 {%  block body %}
+{% include "nav_bar.html" %}
 
+
+  <body>
+    <div class="container">
+
+      <div class="conteudo">
+        {% for foto in fotos %}
+        <a href="{{ url_for('perfil', id_usuario=foto.user.id) }}" class="bloco-imagem">
+          <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}"/>
+        </a>
+        {% endfor %}
+
+    </body>
 {%  block formulario %}
-
 {% endblock %}
-<h1>Feed Principal</h1>
-<a href="{{ url_for('logout') }}"> Sair da conta</a> <br>
 
 
-{% for foto in fotos %}
-    <a href="{{ url_for('perfil', id_usuario=foto.user.id) }}">
-        <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}" alt="">
-    </a>
-{% endfor %}
 
 {% endblock %}

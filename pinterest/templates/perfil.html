@@ -2,7 +2,7 @@
 
 
 {% block titulo %}
-aqui eh perfil de {{ usuario.username }}
+Perfil - {{ usuario.username }}
 {% endblock %}
 
 {% block body %}
@@ -10,33 +10,57 @@ aqui eh perfil de {{ usuario.username }}
 
 {% include 'nav_bar.html' %}
 
-    
-
-<h1>OI PERFIL de {{ usuario.username }} aqui ne</h1>
 
 
-
-{% for foto in usuario.fotos %}
-    <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}" alt="">
-{% endfor %}
 {% if form %}
-<form method="post" enctype="multipart/form-data">
 
-    {{ form.csrf_token }}
+    <div class="container">
+      
+        <form class="bloco-add-img" method="post" enctype="multipart/form-data">
 
-    {{ form.foto }}
-    {{ form.botao_upload }}
+                {{ form.csrf_token }}
 
-</form>
+          <h2> {{usuario.username}} - Enviar foto</h2>
 
+          <div class="bloco-arquivo">
+            <label for="foto" class="botao-arquivo">
+              Escolher arquivo
+                  {{ form.foto(class="input-arquivo", id="foto") }}
+            </label>
+            <span id="imagem-arquivo" class=""></span>
+          </div>
+              {{ form.botao_upload(class="botao-login") }}
+        </form>
+{% else %}
+    <div class="bloco-add-img">
+    <h2> {{usuario.username}} - Ver Perfil</h2>
+    </div>
 {% endif %}
 
+    <body>
+    <div class="container">
+
+      <div class="conteudo">
+        {% for foto in usuario.fotos %}
+        <a href="{{ url_for('perfil', id_usuario=foto.user.id) }}" class="bloco-imagem">
+          <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}"/>
+        </a>
+        {% endfor %}
+    <body>
+    <script>
+      let input = document.getElementById("foto");
+      let imagemArquivo = document.getElementById("imagem-arquivo");
+
+      input.addEventListener("change", () => {
+        let inputImagem = document.querySelector("input[type=file]").files[0];
+
+        imagemArquivo.classList.add("visivel");
+        imagemArquivo.innerText = inputImagem.name;
+      });
+    </script>
 
 {% endblock %}
-
-
 {% block formulario %}
 {% endblock %}
-
-
-</body>
+  </body>
+</html>

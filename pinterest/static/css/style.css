@@ -4,7 +4,7 @@
 }
 
 body {
-  font-family: Montserrat;
+  font-family: Montserrat ,sans-serif;;
   color: #333;
 }
 
@@ -36,6 +36,7 @@ img {
   align-items: center;
   width: fit-content;
   column-gap: 4px;
+  text-decoration: none;
 }
 
 .link-nav {

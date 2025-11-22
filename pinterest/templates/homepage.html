@@ -74,11 +74,21 @@
 
           <div class="div-input">
             {{ form.email.label(class="label") }}
+            {% if form.email.errors %}
+              {% for erro in form.email.errors%}
+                {{ erro }}
+              {% endfor %}  
+            {% endif %}            
             {{ form.email(class="input") }}
           </div>
 
           <div class="div-input">
             {{ form.senha.label(class="label") }}
+            {% if form.senha.errors %}
+              {% for erro in form.senha.errors %}
+                {{ erro }}
+              {% endfor %}  
+            {% endif %}            
             {{ form.senha(class="input") }}
           </div>
 
